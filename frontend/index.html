@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contextual RAG System</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🔍</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/static/css/style.css" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        surface: 'var(--bg-surface)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body
+    class="antialiased h-screen overflow-hidden selection:bg-primary selection:text-white flex flex-col relative w-full">
+
+    <!-- Navbar -->
+    <nav class="absolute w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <span class="font-black text-2xl tracking-widest">T E X T R A G</span>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center translate-x-[300px]">
+                    <a href="#" data-modal-target="features-modal"
+                        class="text-sm font-black uppercase tracking-[0.25em] hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-blue-500 hover:to-cyan-400 transition-all duration-300">Features</a>
+                    <a href="#" data-modal-target="architecture-modal"
+                        class="text-sm font-black uppercase tracking-[0.25em] hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-blue-500 hover:to-cyan-400 transition-all duration-300">Architecture</a>
+                    <a href="#" data-modal-target="resources-modal"
+                        class="text-sm font-black uppercase tracking-[0.25em] hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-blue-500 hover:to-cyan-400 transition-all duration-300">Resources</a>
+                </div>
+                <div class="flex items-center translate-x-[200px]">
+                    <button id="theme-toggle" class="p-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition">
+                        <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main class="flex-grow flex items-center justify-center px-4 mx-auto w-full max-w-7xl text-center">
+        <div>
+            <h1 class="text-5xl sm:text-7xl font-extrabold tracking-tight mb-8 whitespace-nowrap">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400">Contextual
+                    AI‑Powered RAG</span>
+            </h1>
+            <p class="max-w-5xl mx-auto text-lg sm:text-xl text-[var(--text-muted)] mb-10 leading-relaxed">
+                A production-grade RAG ecosystem powered by intelligent vector search, advanced embeddings,<br>precision
+                reranking, and state-of-the-art LLMs for highly accurate knowledge retrieval and generation.
+            </p>
+            <div class="flex justify-center gap-4 flex-col sm:flex-row">
+                <a href="/chat"
+                    class="px-6 py-3 rounded-xl bg-gray-100 dark:bg-neutral-800 hover:bg-gray-200 dark:hover:bg-neutral-700 text-[var(--text-main)] border border-[var(--glass-border)] font-black text-sm tracking-widest transition shadow-md flex items-center justify-center gap-2">
+                    <i data-lucide="sparkles" class="w-4 h-4 text-primary"></i> P R O C E E D
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modals -->
+    <!-- Features Modal -->
+    <!-- Modals -->
+    <!-- Features Modal -->
+    <div id="features-modal"
+        class="modal-overlay fixed inset-0 z-[100] bg-black/60 hidden opacity-0 transition-opacity duration-300 items-center justify-center p-4 backdrop-blur-sm">
+        <div class="relative w-full max-w-5xl max-h-[90vh] overflow-y-auto styling-scrollbar bg-[var(--bg-surface)] rounded-3xl shadow-2xl p-8 md:p-10 border border-[var(--glass-border)]"
+            onclick="event.stopPropagation()">
+            <button data-modal-close
+                class="absolute top-5 right-5 p-2 text-[var(--text-muted)] hover:text-[var(--text-main)] transition bg-black/5 dark:bg-white/5 rounded-full hover:scale-105 duration-200">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div class="py-2">
+                <div class="text-center mb-10">
+                    <span
+                        class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-primary/10 text-primary mb-4">
+                        <i data-lucide="sparkles" class="w-3.5 h-3.5 animate-pulse"></i> Enterprise Ready
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-[var(--text-main)] mb-3">
+                        Enterprise Capabilities</h2>
+                    <p class="text-[var(--text-muted)] text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
+                        High-performance modules engineered for maximum speed, security, and contextual accuracy.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <!-- Card 1 -->
+                    <div
+                        class="group relative py-4.5 px-6 rounded-2xl bg-black/5 dark:bg-white/5 border border-[var(--glass-border)] hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between shadow-sm hover:shadow-md hover:shadow-primary/5">
+                        <div>
+                            <div
+                                class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 dark:bg-blue-900/30 flex items-center justify-center mb-4 group-hover:scale-115 group-hover:bg-blue-500 group-hover:text-white transition-all duration-300">
+                                <i data-lucide="database" class="w-5 h-5"></i>
+                            </div>
+                            <h3
+                                class="text-lg font-bold mb-2 group-hover:text-primary transition-colors duration-200 text-[var(--text-main)]">
+                                Chroma Cloud Sync</h3>
+                            <p class="text-xs text-[var(--text-muted)] leading-relaxed">Lightning fast remote vector
+                                search clusters pushing isolated semantic datasets via secure HTTPS pipelines directly
+                                to ChromaDB Cloud nodes.</p>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div
+                        class="group relative py-4.5 px-6 rounded-2xl bg-black/5 dark:bg-white/5 border border-[var(--glass-border)] hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between shadow-sm hover:shadow-md hover:shadow-primary/5">
+                        <div>
+                            <div
+                                class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 dark:bg-purple-900/30 flex items-center justify-center mb-4 group-hover:scale-115 group-hover:bg-purple-500 group-hover:text-white transition-all duration-300">
+                                <i data-lucide="layers" class="w-5 h-5"></i>
+                            </div>
+                            <h3
+                                class="text-lg font-bold mb-2 group-hover:text-primary transition-colors duration-200 text-[var(--text-main)]">
+                                Multilingual Cross-Encoders</h3>
+                            <p class="text-xs text-[var(--text-muted)] leading-relaxed">Mitigate middle-lost context
+                                logic. We retrieve Top 50 chunks and rerank precisely utilizing advanced Jina AI
+                                multilingual transformers.</p>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div
+                        class="group relative py-4.5 px-6 rounded-2xl bg-black/5 dark:bg-white/5 border border-[var(--glass-border)] hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between shadow-sm hover:shadow-md hover:shadow-primary/5">
+                        <div>
+                            <div
+                                class="w-10 h-10 rounded-xl bg-cyan-100 text-cyan-600 dark:bg-cyan-900/30 flex items-center justify-center mb-4 group-hover:scale-115 group-hover:bg-cyan-500 group-hover:text-white transition-all duration-300">
+                                <i data-lucide="bot" class="w-5 h-5"></i>
+                            </div>
+                            <h3
+                                class="text-lg font-bold mb-2 group-hover:text-primary transition-colors duration-200 text-[var(--text-main)]">
+                                Claude 4.7 Orchestration</h3>
+                            <p class="text-xs text-[var(--text-muted)] leading-relaxed">Backed by the most highly
+                                intelligent commercial models natively orchestrated via LangChain pipelines pushing
+                                real-time logical grounding.</p>
+                        </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div
+                        class="group relative py-4.5 px-6 rounded-2xl bg-black/5 dark:bg-white/5 border border-[var(--glass-border)] hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between shadow-sm hover:shadow-md hover:shadow-primary/5">
+                        <div>
+                            <div
+                                class="w-10 h-10 rounded-xl bg-green-100 text-green-600 dark:bg-green-900/30 flex items-center justify-center mb-4 group-hover:scale-115 group-hover:bg-green-500 group-hover:text-white transition-all duration-300">
+                                <i data-lucide="activity" class="w-5 h-5"></i>
+                            </div>
+                            <h3
+                                class="text-lg font-bold mb-2 group-hover:text-primary transition-colors duration-200 text-[var(--text-main)]">
+                                Server-Sent Events (SSE)</h3>
+                            <p class="text-xs text-[var(--text-muted)] leading-relaxed">Experience zero-latency UX.
+                                Generator tokens are streamed asynchronously straight directly from our FastRouter API
+                                into the UI instantly.</p>
+                        </div>
+                    </div>
+                    <!-- Card 5 -->
+                    <div
+                        class="group relative py-4.5 px-6 rounded-2xl bg-black/5 dark:bg-white/5 border border-[var(--glass-border)] hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between shadow-sm hover:shadow-md hover:shadow-primary/5">
+                        <div>
+                            <div
+                                class="w-10 h-10 rounded-xl bg-yellow-100 text-yellow-600 dark:bg-yellow-900/30 flex items-center justify-center mb-4 group-hover:scale-115 group-hover:bg-yellow-500 group-hover:text-white transition-all duration-300">
+                                <i data-lucide="shield-alert" class="w-5 h-5"></i>
+                            </div>
+                            <h3
+                                class="text-lg font-bold mb-2 group-hover:text-primary transition-colors duration-200 text-[var(--text-main)]">
+                                Dual-Mode Fallback</h3>
+                            <p class="text-xs text-[var(--text-muted)] leading-relaxed">Guaranteed 99.99% uptime. If
+                                cloud infrastructure fails, dynamic fallbacks instantaneously rebuild and mount to
+                                offline SQLite disks under milliseconds.</p>
+                        </div>
+                    </div>
+                    <!-- Card 6 -->
+                    <div
+                        class="group relative py-4.5 px-6 rounded-2xl bg-black/5 dark:bg-white/5 border border-[var(--glass-border)] hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between shadow-sm hover:shadow-md hover:shadow-primary/5">
+                        <div>
+                            <div
+                                class="w-10 h-10 rounded-xl bg-rose-100 text-rose-600 dark:bg-rose-900/30 flex items-center justify-center mb-4 group-hover:scale-115 group-hover:bg-rose-500 group-hover:text-white transition-all duration-300">
+                                <i data-lucide="braces" class="w-5 h-5"></i>
+                            </div>
+                            <h3
+                                class="text-lg font-bold mb-2 group-hover:text-primary transition-colors duration-200 text-[var(--text-main)]">
+                                Stateless Architecture</h3>
+                            <p class="text-xs text-[var(--text-muted)] leading-relaxed">Deployed purely on modern Python
+                                ASGI web-servers. Container-ready, completely immutable horizontal scalability requiring
+                                zero session management.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Architecture Modal -->
+    <div id="architecture-modal"
+        class="modal-overlay fixed inset-0 z-[100] bg-black/60 hidden opacity-0 transition-opacity duration-300 items-center justify-center p-4 backdrop-blur-sm">
+        <div class="relative w-full max-w-5xl max-h-[90vh] overflow-y-auto styling-scrollbar bg-[var(--bg-surface)] rounded-3xl shadow-2xl p-8 border border-[var(--glass-border)]"
+            onclick="event.stopPropagation()">
+            <button data-modal-close
+                class="absolute top-4 right-4 p-2 text-[var(--text-muted)] hover:text-[var(--text-main)] transition bg-black/5 dark:bg-white/5 rounded-full">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div class="py-4 text-center">
+                <h2 class="text-4xl font-extrabold mb-12 tracking-tight">System Architecture</h2>
+
+                <div
+                    class="p-6 md:p-8 rounded-3xl bg-black/5 dark:bg-white/5 border border-[var(--glass-border)] relative">
+                    <!-- Complex GRID flow -->
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-stretch text-center font-semibold text-sm">
+
+                        <!-- Client Layer -->
+                        <div
+                            class="flex flex-col gap-4 justify-between bg-black/5 dark:bg-white/[0.02] p-4 rounded-2xl border border-[var(--glass-border)]">
+                            <div class="text-left mb-2">
+                                <span
+                                    class="text-[10px] font-bold tracking-widest text-[var(--text-muted)] uppercase block mb-1">Layer
+                                    01</span>
+                                <h4 class="text-xs uppercase font-extrabold text-[var(--text-main)]">Client Transport
+                                </h4>
+                            </div>
+
+                            <div
+                                class="p-3.5 rounded-xl glass border-primary/40 border flex items-center gap-3 text-left shadow-lg shadow-blue-500/5 min-h-[64px] hover:border-primary transition-all duration-300">
+                                <i data-lucide="send" class="w-5 h-5 text-primary flex-shrink-0"></i>
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-bold text-[var(--text-main)]">User Query Request</span>
+                                    <span class="text-[9px] text-[var(--text-muted)] font-normal">HTTP Payload</span>
+                                </div>
+                            </div>
+
+                            <div
+                                class="p-3.5 rounded-xl glass border-green-500/40 border flex items-center gap-3 text-left shadow-lg shadow-green-500/5 mt-auto min-h-[64px] hover:border-green-500 transition-all duration-300">
+                                <i data-lucide="sparkles"
+                                    class="w-5 h-5 text-green-500 flex-shrink-0 animate-pulse"></i>
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-bold text-[var(--text-main)]">SSE Async Stream</span>
+                                    <span class="text-[9px] text-[var(--text-muted)] font-normal">Token-by-Token</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Connector 1 -->
+                        <div
+                            class="hidden md:flex flex-col items-center justify-center text-[var(--text-muted)] opacity-70">
+                            <div class="flex flex-col items-center justify-center h-full gap-24">
+                                <div class="flex flex-col items-center gap-1">
+                                    <span
+                                        class="text-[9px] uppercase font-bold tracking-widest text-primary">Inbound</span>
+                                    <i data-lucide="arrow-right" class="w-5 h-5 text-primary"></i>
+                                </div>
+                                <div class="flex flex-col items-center gap-1">
+                                    <span
+                                        class="text-[9px] uppercase font-bold tracking-widest text-green-500">Stream</span>
+                                    <i data-lucide="arrow-left" class="w-5 h-5 text-green-500 animate-pulse"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Middleware / API Layer -->
+                        <div
+                            class="flex flex-col gap-4 bg-black/5 dark:bg-white/[0.02] p-4 rounded-2xl border border-[var(--glass-border)] justify-between">
+                            <div class="text-left mb-2">
+                                <span
+                                    class="text-[10px] font-bold tracking-widest text-[var(--text-muted)] uppercase block mb-1">Layer
+                                    02</span>
+                                <h4 class="text-xs uppercase font-extrabold text-[var(--text-main)]">API Gateway</h4>
+                            </div>
+
+                            <div
+                                class="p-3.5 rounded-xl glass border border-[var(--glass-border)] hover:border-primary/40 flex items-center gap-3 text-left bg-black/5 dark:bg-white/5 shadow-sm min-h-[64px] transition-all duration-300">
+                                <i data-lucide="git-commit" class="w-5 h-5 text-primary flex-shrink-0"></i>
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-bold text-[var(--text-main)]">Route Controller</span>
+                                    <span class="text-[9px] text-[var(--text-muted)] font-normal">/api/v1/query</span>
+                                </div>
+                            </div>
+
+                            <div
+                                class="p-3.5 rounded-xl glass border border-[var(--glass-border)] hover:border-yellow-500/40 flex items-center gap-3 text-left bg-black/5 dark:bg-white/5 shadow-sm min-h-[64px] transition-all duration-300">
+                                <i data-lucide="shield" class="w-5 h-5 text-yellow-500 flex-shrink-0"></i>
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-bold text-[var(--text-main)]">Validation</span>
+                                    <span class="text-[9px] text-[var(--text-muted)] font-normal">Pydantic Schema</span>
+                                </div>
+                            </div>
+
+                            <div
+                                class="p-3.5 rounded-xl glass border border-[var(--glass-border)] hover:border-purple-500/40 flex items-center gap-3 text-left bg-purple-500/5 shadow-sm min-h-[64px] transition-all duration-300">
+                                <i data-lucide="cpu"
+                                    class="w-5 h-5 text-purple-600 dark:text-purple-400 flex-shrink-0"></i>
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-bold text-[var(--text-main)]">LCEL Logic</span>
+                                    <span class="text-[9px] text-[var(--text-muted)] font-normal">LangChain
+                                        Pipeline</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Connector 2 -->
+                        <div
+                            class="hidden md:flex flex-col items-center justify-center text-[var(--text-muted)] opacity-70">
+                            <div class="flex flex-col items-center justify-center h-full gap-10">
+                                <div class="flex flex-col items-center">
+                                    <i data-lucide="arrow-right" class="w-5 h-5 text-primary"></i>
+                                    <span
+                                        class="text-[9px] uppercase font-bold tracking-wider text-[var(--text-muted)]">Request</span>
+                                </div>
+                                <div class="h-10 w-px border-l-2 border-dashed border-[var(--glass-border)]"></div>
+                                <div class="flex flex-col items-center">
+                                    <i data-lucide="arrow-left" class="w-5 h-5 text-purple-500"></i>
+                                    <span
+                                        class="text-[9px] uppercase font-bold tracking-wider text-purple-500">Reranked</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AI / Compute Layer -->
+                        <div
+                            class="flex flex-col gap-3 bg-black/5 dark:bg-white/[0.02] p-4 rounded-2xl border border-[var(--glass-border)] justify-between">
+                            <div class="text-left mb-2">
+                                <span
+                                    class="text-[10px] font-bold tracking-widest text-[var(--text-muted)] uppercase block mb-1">Layer
+                                    03</span>
+                                <h4 class="text-xs uppercase font-extrabold text-[var(--text-main)]">AI Orchestration
+                                </h4>
+                            </div>
+
+                            <!-- 1. Embed Card (Embedding Layer) -->
+                            <div
+                                class="p-3 rounded-xl glass border border-blue-500/20 hover:border-blue-500 flex items-center gap-3 text-left bg-blue-500/5 shadow-sm min-h-[56px] transition-all duration-300 group">
+                                <i data-lucide="hash"
+                                    class="w-5 h-5 text-blue-500 flex-shrink-0 group-hover:scale-110 duration-200"></i>
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-bold text-[var(--text-main)]">Embedding Layer</span>
+                                    <span class="text-[9px] text-[var(--text-muted)] font-normal">Jina API
+                                        (v5-small)</span>
+                                </div>
+                            </div>
+
+                            <!-- 2. Retrieval Card (Vector Database Layer) -->
+                            <div
+                                class="p-3 rounded-xl glass border border-cyan-500/20 hover:border-cyan-500 flex items-center gap-3 text-left bg-cyan-500/5 shadow-sm min-h-[56px] transition-all duration-300 group">
+                                <i data-lucide="database"
+                                    class="w-5 h-5 text-cyan-500 flex-shrink-0 group-hover:scale-110 duration-200"></i>
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-bold text-[var(--text-main)]">Vector Database</span>
+                                    <span class="text-[9px] text-[var(--text-muted)] font-normal">Chroma Cloud
+                                        (N=50)</span>
+                                </div>
+                            </div>
+
+                            <!-- 3. Rerank Card (Reranking Layer) -->
+                            <div
+                                class="p-3 rounded-xl glass border border-orange-500/20 hover:border-orange-500 flex items-center gap-3 text-left bg-orange-500/5 shadow-sm min-h-[56px] transition-all duration-300 group">
+                                <i data-lucide="filter"
+                                    class="w-5 h-5 text-orange-500 flex-shrink-0 group-hover:scale-110 duration-200"></i>
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-bold text-[var(--text-main)]">Reranking Layer</span>
+                                    <span class="text-[9px] text-[var(--text-muted)] font-normal">Jina Reranker
+                                        (N=5)</span>
+                                </div>
+                            </div>
+
+                            <!-- 4. Generation Card (LLM Layer) -->
+                            <div
+                                class="p-3 rounded-xl glass border border-rose-500/20 hover:border-rose-500 flex items-center gap-3 text-left bg-rose-500/5 shadow-lg shadow-rose-500/10 min-h-[56px] transition-all duration-300 group">
+                                <i data-lucide="bot"
+                                    class="w-5 h-5 text-rose-500 flex-shrink-0 group-hover:scale-110 duration-200"></i>
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-bold text-[var(--text-main)]">LLM Layer</span>
+                                    <span class="text-[9px] text-[var(--text-muted)] font-normal">Claude 4.7
+                                        Engine</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Resources Modal -->
+    <div id="resources-modal"
+        class="modal-overlay fixed inset-0 z-[100] bg-black/60 hidden opacity-0 transition-opacity duration-300 items-center justify-center p-4 backdrop-blur-sm">
+        <div class="relative w-full max-w-5xl h-[80vh] bg-[var(--bg-surface)] rounded-3xl shadow-2xl border border-[var(--glass-border)] flex overflow-hidden"
+            onclick="event.stopPropagation()">
+
+            <button data-modal-close
+                class="absolute top-4 right-4 z-[110] p-2 text-[var(--text-muted)] hover:text-[var(--text-main)] transition bg-black/5 dark:bg-white/5 rounded-full hover:scale-105 duration-200">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <!-- Left Sidebar Navigation -->
+            <aside
+                class="w-64 flex-shrink-0 border-r border-[var(--glass-border)] bg-black/5 dark:bg-white/[0.02] flex flex-col h-full">
+                <div class="p-6 border-b border-[var(--glass-border)]">
+                    <h3
+                        class="text-sm font-black tracking-wider uppercase text-[var(--text-main)] flex items-center gap-2">
+                        <i data-lucide="book-open" class="w-4 h-4 text-primary"></i> Resources
+                    </h3>
+                </div>
+                <nav class="flex-grow overflow-y-auto p-4 space-y-1.5 styling-scrollbar text-left">
+                    <button data-tab-target="resources-doc"
+                        class="w-full text-left px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-primary bg-primary/10 transition duration-150 flex items-center gap-2.5">
+                        <i data-lucide="file-text" class="w-4 h-4"></i> Documentation
+                    </button>
+                    <button data-tab-target="resources-apis"
+                        class="w-full text-left px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] hover:bg-black/5 dark:hover:bg-white/5 hover:text-[var(--text-main)] transition duration-150 flex items-center gap-2.5">
+                        <i data-lucide="code" class="w-4 h-4"></i> APIs
+                    </button>
+                    <button data-tab-target="resources-models"
+                        class="w-full text-left px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] hover:bg-black/5 dark:hover:bg-white/5 hover:text-[var(--text-main)] transition duration-150 flex items-center gap-2.5">
+                        <i data-lucide="cpu" class="w-4 h-4"></i> Models
+                    </button>
+                    <button data-tab-target="resources-embeddings"
+                        class="w-full text-left px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] hover:bg-black/5 dark:hover:bg-white/5 hover:text-[var(--text-main)] transition duration-150 flex items-center gap-2.5">
+                        <i data-lucide="hash" class="w-4 h-4"></i> Embeddings
+                    </button>
+                    <button data-tab-target="resources-rerankers"
+                        class="w-full text-left px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] hover:bg-black/5 dark:hover:bg-white/5 hover:text-[var(--text-main)] transition duration-150 flex items-center gap-2.5">
+                        <i data-lucide="filter" class="w-4 h-4"></i> Rerankers
+                    </button>
+                    <button data-tab-target="resources-db"
+                        class="w-full text-left px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] hover:bg-black/5 dark:hover:bg-white/5 hover:text-[var(--text-main)] transition duration-150 flex items-center gap-2.5">
+                        <i data-lucide="database" class="w-4 h-4"></i> Vector Database
+                    </button>
+                    <button data-tab-target="resources-components"
+                        class="w-full text-left px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] hover:bg-black/5 dark:hover:bg-white/5 hover:text-[var(--text-main)] transition duration-150 flex items-center gap-2.5">
+                        <i data-lucide="layers" class="w-4 h-4"></i> Components
+                    </button>
+                    <button data-tab-target="resources-tech"
+                        class="w-full text-left px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] hover:bg-black/5 dark:hover:bg-white/5 hover:text-[var(--text-main)] transition duration-150 flex items-center gap-2.5">
+                        <i data-lucide="terminal" class="w-4 h-4"></i> Technologies
+                    </button>
+                    <button data-tab-target="resources-arch"
+                        class="w-full text-left px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] hover:bg-black/5 dark:hover:bg-white/5 hover:text-[var(--text-main)] transition duration-150 flex items-center gap-2.5">
+                        <i data-lucide="git-branch" class="w-4 h-4"></i> Architecture
+                    </button>
+                    <button data-tab-target="resources-impl"
+                        class="w-full text-left px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] hover:bg-black/5 dark:hover:bg-white/5 hover:text-[var(--text-main)] transition duration-150 flex items-center gap-2.5">
+                        <i data-lucide="settings" class="w-4 h-4"></i> Implementation Details
+                    </button>
+                </nav>
+            </aside>
+
+            <!-- Right Content Panel -->
+            <div
+                class="flex-grow overflow-y-auto p-8 md:p-10 styling-scrollbar bg-[var(--bg-surface)] flex flex-col text-left">
+                <!-- Documentation Section -->
+                <div id="resources-doc" class="resource-content-pane space-y-6">
+                    <h2 class="text-3xl font-extrabold tracking-tight text-[var(--text-main)] flex items-center gap-3">
+                        <i data-lucide="file-text" class="w-8 h-8 text-primary"></i> Documentation
+                    </h2>
+                    <p class="text-sm text-[var(--text-muted)] leading-relaxed">
+                        Comprehensive developer guides and technical specifications for interacting with our RAG and
+                        Semantic Search infrastructure. Below you will find structured walk-through details designed to
+                        streamline ingestion, testing, and production alignment.
+                    </p>
+                    <div class="p-6 rounded-2xl bg-black/5 dark:bg-white/[0.02] border border-[var(--glass-border)]">
+                        <h4 class="text-sm font-bold text-[var(--text-main)] mb-2">Getting Started Guide</h4>
+                        <p class="text-xs text-[var(--text-muted)] leading-relaxed mb-4">
+                            Connect your pipelines, setup custom knowledge sets, ingest documents, and configure
+                            dual-stage cross-encoder search retrieval in minutes.
+                        </p>
+                        <a href="/chat"
+                            class="inline-flex items-center gap-1 text-xs font-bold text-primary hover:underline">
+                            Open Interactive Chat <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- APIs Section -->
+                <div id="resources-apis" class="resource-content-pane space-y-6 hidden">
+                    <h2 class="text-3xl font-extrabold tracking-tight text-[var(--text-main)] flex items-center gap-3">
+                        <i data-lucide="code" class="w-8 h-8 text-primary"></i> APIs
+                    </h2>
+                    <p class="text-sm text-[var(--text-muted)] leading-relaxed">
+                        FastAPI Router specifications, custom endpoints, schema validation logic, and SSE controller
+                        details. Our API endpoints allow programmatic control over vector insertions, document status
+                        monitoring, query executions, and low-latency token streaming.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="p-4 rounded-xl bg-black/5 dark:bg-white/[0.02] border border-[var(--glass-border)]">
+                            <span
+                                class="text-[9px] font-bold text-primary uppercase bg-primary/10 px-2 py-0.5 rounded-full">Post</span>
+                            <h4 class="text-xs font-bold text-[var(--text-main)] mt-2">/api/v1/query</h4>
+                            <p class="text-[10px] text-[var(--text-muted)] mt-1">Accepts questions, runs dual-stage
+                                retrieval, and returns answers.</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-black/5 dark:bg-white/[0.02] border border-[var(--glass-border)]">
+                            <span
+                                class="text-[9px] font-bold text-green-500 uppercase bg-green-500/10 px-2 py-0.5 rounded-full">Stream</span>
+                            <h4 class="text-xs font-bold text-[var(--text-main)] mt-2">/api/v1/stream</h4>
+                            <p class="text-[10px] text-[var(--text-muted)] mt-1">Server-Sent Events interface for
+                                low-latency generation streaming.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Models Section -->
+                <div id="resources-models" class="resource-content-pane space-y-6 hidden">
+                    <h2 class="text-3xl font-extrabold tracking-tight text-[var(--text-main)] flex items-center gap-3">
+                        <i data-lucide="cpu" class="w-8 h-8 text-primary"></i> Models
+                    </h2>
+                    <p class="text-sm text-[var(--text-muted)] leading-relaxed">
+                        Large Language Model configurations, routing protocols, generation parameters, and semantic
+                        context limits. We utilize highly advanced model weights configured with optimal temperature
+                        parameters to guarantee grounded and context-appropriate answers.
+                    </p>
+                    <div
+                        class="p-5 rounded-xl bg-black/5 dark:bg-white/[0.02] border border-[var(--glass-border)] flex gap-4 items-start">
+                        <i data-lucide="bot" class="w-8 h-8 text-primary mt-1"></i>
+                        <div>
+                            <h4 class="text-sm font-bold text-[var(--text-main)]">Claude 4.7 Engine</h4>
+                            <p class="text-xs text-[var(--text-muted)] leading-relaxed mt-1">
+                                Default context reasoning engine. Backed by state-of-the-art parameters tuned for
+                                factual grounding, logical consistency, and document synthesis.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Embeddings Section -->
+                <div id="resources-embeddings" class="resource-content-pane space-y-6 hidden">
+                    <h2 class="text-3xl font-extrabold tracking-tight text-[var(--text-main)] flex items-center gap-3">
+                        <i data-lucide="hash" class="w-8 h-8 text-primary"></i> Embeddings
+                    </h2>
+                    <p class="text-sm text-[var(--text-muted)] leading-relaxed">
+                        Vector representations, chunk sizes, token constraints, and remote embedding engine interfaces.
+                        Our dense vector mappings capture deep semantic attributes of document fragments, enabling
+                        multi-lingual search queries to align seamlessly.
+                    </p>
+                    <div class="p-5 rounded-xl bg-black/5 dark:bg-white/[0.02] border border-[var(--glass-border)]">
+                        <h4 class="text-xs font-bold text-blue-500 uppercase tracking-wider">Jina AI Embedding
+                            (v5-small)</h4>
+                        <p class="text-xs text-[var(--text-muted)] leading-relaxed mt-2">
+                            A highly optimized, multilingual bi-encoder that processes user requests and documents into
+                            dense semantic vector representations for similarity checks.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Rerankers Section -->
+                <div id="resources-rerankers" class="resource-content-pane space-y-6 hidden">
+                    <h2 class="text-3xl font-extrabold tracking-tight text-[var(--text-main)] flex items-center gap-3">
+                        <i data-lucide="filter" class="w-8 h-8 text-primary"></i> Rerankers
+                    </h2>
+                    <p class="text-sm text-[var(--text-muted)] leading-relaxed">
+                        Dual-stage similarity cross-encoders and reranking backend logic. Rerankers analyze semantic
+                        overlap directly between raw queries and returned vector chunks, preventing middle-lost contexts
+                        and maximizing structural synthesis.
+                    </p>
+                    <div class="p-5 rounded-xl bg-black/5 dark:bg-white/[0.02] border border-[var(--glass-border)]">
+                        <h4 class="text-xs font-bold text-orange-500 uppercase tracking-wider">Jina Multilingual
+                            Reranker</h4>
+                        <p class="text-xs text-[var(--text-muted)] leading-relaxed mt-2">
+                            Selects the Top 50 retrieved vector chunks and calculates precise semantic relevance scores
+                            using cross-encoders, narrowing the result set to the best 5 chunks for LLM context
+                            generation.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Vector Database Section -->
+                <div id="resources-db" class="resource-content-pane space-y-6 hidden">
+                    <h2 class="text-3xl font-extrabold tracking-tight text-[var(--text-main)] flex items-center gap-3">
+                        <i data-lucide="database" class="w-8 h-8 text-primary"></i> Vector Database
+                    </h2>
+                    <p class="text-sm text-[var(--text-muted)] leading-relaxed">
+                        Chroma DB collection collections, indexing algorithms, connection pools, and real-time syncing
+                        pipelines. The local vector index structures data for rapid k-Nearest Neighbors distance scoring
+                        (Cosine/L2 similarity).
+                    </p>
+                    <div class="p-5 rounded-xl bg-black/5 dark:bg-white/[0.02] border border-[var(--glass-border)]">
+                        <h4 class="text-xs font-bold text-cyan-500 uppercase tracking-wider">ChromaDB Cloud Nodes</h4>
+                        <p class="text-xs text-[var(--text-muted)] leading-relaxed mt-2">
+                            Saves isolated semantic vector indices securely. Utilizes distance functions (Cosine, L2) to
+                            quickly isolate and query document representations.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Components Section -->
+                <div id="resources-components" class="resource-content-pane space-y-6 hidden">
+                    <h2 class="text-3xl font-extrabold tracking-tight text-[var(--text-main)] flex items-center gap-3">
+                        <i data-lucide="layers" class="w-8 h-8 text-primary"></i> Components
+                    </h2>
+                    <p class="text-sm text-[var(--text-muted)] leading-relaxed">
+                        Modular UI components, theme controllers, dynamic modal handlers, and client-side web scripts.
+                        Every component integrates seamlessly with vanilla styling APIs and ensures fully responsive
+                        behavior across mobile and desktop devices.
+                    </p>
+                    <ul class="space-y-3 text-xs text-[var(--text-muted)]">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+                            ThemeManager (Light/Dark themes)</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+                            Modal Controller (Features, Architecture, Resources)</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i>
+                            Chat Manager (Streaming SSE interactions)</li>
+                    </ul>
+                </div>
+
+                <!-- Technologies Section -->
+                <div id="resources-tech" class="resource-content-pane space-y-6 hidden">
+                    <h2 class="text-3xl font-extrabold tracking-tight text-[var(--text-main)] flex items-center gap-3">
+                        <i data-lucide="pocket" class="w-8 h-8 text-primary"></i> Technologies
+                    </h2>
+                    <p class="text-sm text-[var(--text-muted)] leading-relaxed">
+                        Core programming languages, frameworks, web servers, and third-party libraries forming the
+                        foundation of our RAG ecosystem. This highly optimized system leverages modern asynchronous
+                        Python paradigms to ensure peak performance.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-4 rounded-xl bg-black/5 dark:bg-white/[0.02] border border-[var(--glass-border)]">
+                            <h4 class="text-xs font-bold text-[var(--text-main)]">Python ASGI</h4>
+                            <p class="text-[10px] text-[var(--text-muted)] mt-1">FastAPI, Uvicorn, SSE Starlette
+                                servers.</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-black/5 dark:bg-white/[0.02] border border-[var(--glass-border)]">
+                            <h4 class="text-xs font-bold text-[var(--text-main)]">LangChain</h4>
+                            <p class="text-[10px] text-[var(--text-muted)] mt-1">Chains, prompt templates, and agent
+                                orchestration.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Architecture Section -->
+                <div id="resources-arch" class="resource-content-pane space-y-6 hidden">
+                    <h2 class="text-3xl font-extrabold tracking-tight text-[var(--text-main)] flex items-center gap-3">
+                        <i data-lucide="git-branch" class="w-8 h-8 text-primary"></i> Architecture
+                    </h2>
+                    <p class="text-sm text-[var(--text-muted)] leading-relaxed">
+                        Detailed layout of system modules, data retrieval sequences, and execution flows. Information
+                        processing layers are compartmentalized to ensure low-latency ingestion, highly secure memory
+                        indices, and modular fallbacks.
+                    </p>
+                    <div class="p-5 rounded-xl bg-black/5 dark:bg-white/[0.02] border border-[var(--glass-border)]">
+                        <p class="text-xs text-[var(--text-muted)] leading-relaxed">
+                            Structured data ingest chunks are fed through Jina Embeddings, indexed in Chroma, retrieved
+                            asynchronously, score-ranked via Cross-Encoder Rerankers, and synthesized into Claude's
+                            context space.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Implementation Details Section -->
+                <div id="resources-impl" class="resource-content-pane space-y-6 hidden">
+                    <h2 class="text-3xl font-extrabold tracking-tight text-[var(--text-main)] flex items-center gap-3">
+                        <i data-lucide="settings" class="w-8 h-8 text-primary"></i> Implementation Details
+                    </h2>
+                    <p class="text-sm text-[var(--text-muted)] leading-relaxed">
+                        Production configurations, filesystem organization, container scripts, local dev servers, and
+                        telemetry utilities. Detailed instructions for environment setup, offline disk fallback logic,
+                        and scaling indices to handle multi-tenant loads.
+                    </p>
+                    <div
+                        class="p-4 rounded-xl bg-black/5 dark:bg-white/[0.02] border border-[var(--glass-border)] text-[10px] font-mono text-[var(--text-muted)] space-y-1">
+                        <div>PORT: 8000</div>
+                        <div>HOST: 0.0.0.0</div>
+                        <div>RELOAD: enabled</div>
+                        <div>DATABASE: offline sqlite disk fallback</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { ThemeManager, Modal } from '/static/js/components/utils.js';
+        lucide.createIcons();
+        ThemeManager.init();
+        Modal.init();
+        document.getElementById('theme-toggle').addEventListener('click', () => ThemeManager.toggle());
+
+        // Tab switching logic for Resources Modal
+        document.querySelectorAll('#resources-modal [data-tab-target]').forEach(button => {
+            button.addEventListener('click', () => {
+                // Deactivate all buttons
+                document.querySelectorAll('#resources-modal [data-tab-target]').forEach(btn => {
+                    btn.classList.remove('text-primary', 'bg-primary/10');
+                    btn.classList.add('text-[var(--text-muted)]');
+                });
+                // Activate clicked button
+                button.classList.add('text-primary', 'bg-primary/10');
+                button.classList.remove('text-[var(--text-muted)]');
+
+                // Hide all panes
+                document.querySelectorAll('#resources-modal .resource-content-pane').forEach(pane => {
+                    pane.classList.add('hidden');
+                });
+                // Show selected pane
+                const targetId = button.getAttribute('data-tab-target');
+                document.getElementById(targetId).classList.remove('hidden');
+            });
+        });
+    </script>
+</body>
+
+</html>

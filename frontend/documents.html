@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Data - RAG System</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🔍</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/static/css/style.css" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#3b82f6' } } } }
+    </script>
+</head>
+
+<body class="antialiased min-h-screen bg-[var(--bg-main)] selection:bg-primary selection:text-white">
+
+    <!-- Top Navbar -->
+    <nav class="w-full z-50 glass border-b border-[var(--glass-border)] sticky top-0">
+        <div class="px-4 sm:px-6 flex justify-between h-14 items-center">
+            <div class="flex items-center gap-4">
+                <a href="/chat" class="p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg transition"><i
+                        data-lucide="arrow-left" class="w-5 h-5"></i></a>
+                <span class="font-bold text-lg tracking-tight">Data & Collections</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <div id="db-status"
+                    class="hidden sm:flex items-center text-xs font-semibold px-3 py-1 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
+                    Connecting...
+                </div>
+                <button id="theme-toggle" class="p-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition">
+                    <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
+                    <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-4 py-8">
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="glass p-6 rounded-2xl flex items-center gap-4">
+                <div class="p-3 bg-blue-100 text-blue-600 dark:bg-blue-900/30 rounded-xl"><i data-lucide="layers"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-[var(--text-muted)]">Indexed Chunks</h3>
+                    <p class="text-2xl font-bold" id="stat-docs">...</p>
+                </div>
+            </div>
+            <div class="glass p-6 rounded-2xl flex items-center gap-4">
+                <div class="p-3 bg-purple-100 text-purple-600 dark:bg-purple-900/30 rounded-xl"><i
+                        data-lucide="server"></i></div>
+                <div>
+                    <h3 class="text-sm font-semibold text-[var(--text-muted)]">Engine Status</h3>
+                    <p class="text-2xl font-bold text-green-500" id="stat-status">...</p>
+                </div>
+            </div>
+            <div class="glass p-6 rounded-2xl flex items-center gap-4">
+                <div class="p-3 bg-cyan-100 text-cyan-600 dark:bg-cyan-900/30 rounded-xl"><i
+                        data-lucide="git-merge"></i></div>
+                <div>
+                    <h3 class="text-sm font-semibold text-[var(--text-muted)]">Embedder</h3>
+                    <p class="text-lg font-bold">BGE-Small</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload Area -->
+        <div class="glass border border-dashed border-[var(--border-color)] hover:border-primary transition-colors duration-300 rounded-3xl p-12 text-center cursor-pointer group"
+            id="drop-zone">
+            <input type="file" id="file-input" class="hidden" accept=".txt,.pdf,.docx">
+            <div
+                class="w-16 h-16 rounded-2xl bg-black/5 dark:bg-white/5 mx-auto flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <i data-lucide="upload-cloud"
+                    class="w-8 h-8 text-[var(--text-muted)] group-hover:text-primary transition-colors"></i>
+            </div>
+            <h2 class="text-2xl font-bold mb-2">Upload Knowledge Document</h2>
+            <p class="text-[var(--text-muted)] max-w-md mx-auto">
+                Drag and drop your PDF, DOCX, or TXT files here. They will be automatically parsed, chunked, embedded,
+                and added to the Chroma Vector Store.
+            </p>
+            <button
+                class="mt-6 px-6 py-2.5 rounded-full bg-[var(--text-main)] text-[var(--bg-main)] font-semibold hover:opacity-90 transition">
+                Browse Files
+            </button>
+        </div>
+
+    </main>
+
+    <script type="module" src="/static/js/components/documents.js"></script>
+</body>
+
+</html>
