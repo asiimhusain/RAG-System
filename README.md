@@ -3,6 +3,8 @@
 A production-grade Retrieval-Augmented Generation (RAG) system featuring dual-stage retrieval (Dense Vector Search + Cross-Encoder Reranking), persistent chat history management, and a clean, responsive web interface.
 
 ---
+* Live Link - *  https://ragsystem.grayground-1f565d06.centralindia.azurecontainerapps.io
+---
 
 ## 🚀 Key Features
 
@@ -118,3 +120,7 @@ EXPOSE 8000
 CMD ["gunicorn", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "app.main:app", "--bind", "0.0.0.0:8000"]
 ```
 Deploy the container to **Azure Container Apps** and mount an **Azure File Share** to `/workspace/data` to persist your chat database.
+
+---
+
+* Developer * - Asim Husain - www.asimhusain.dev
